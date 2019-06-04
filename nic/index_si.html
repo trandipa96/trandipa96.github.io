@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>NIC Birthday Finder - GGSLK</title>
+
+  <!-- CSS  -->
+  <link rel="shortcut icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.modal');
+     // var instances = M.Modal.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $(document).ready(function () {
+      $('.modal').modal();
+    });</script>
+
+<script>
+    $(document).ready(function () {
+        $("#find").click(function () {
+            //Clear Existing Details
+            $("#error").html("");
+            $("#gender").html("");
+            $("#year").html("");
+            $("#month").html("");
+            $("#day").html("");
+
+            var NICNo = $("#nic").val();
+            var dayText = 0;
+            var year = "";
+            var month = "";
+            var day = "";
+            var gender = "";
+            if (NICNo.length != 10 && NICNo.length != 12) {
+              wrongnic='<table style="width:100%"><tr><th><img class="responsive-img" src="img/Oops.png" style="height:100px;"></th><th><h2>  යම්කිසි වරදක් වී ඇත.</h2><br><p>කරුණාකර ජාතික හැදුනුම්පත් අංකය පරික්ෂාකර නැවත ඇතුලත් කරන්න</p></th> </tr></table>'
+              $("#error").html(wrongnic);
+            } else if (NICNo.length == 10 && !$.isNumeric(NICNo.substr(0, 9))) {
+              wrongnic1='<table style="width:100%"><tr><th><img class="responsive-img" src="img/Oops.png" style="height:100px;"></th><th><h2>  යම්කිසි වරදක් වී ඇත.</h2><br><p>කරුණාකර ජාතික හැදුනුම්පත් අංකය පරික්ෂාකර නැවත ඇතුලත් කරන්න</p></th> </tr></table>'
+               $("#error").html(wrongnic1);
+            }
+            else {
+                // Year
+                if (NICNo.length == 10) {
+                    year = "19" + NICNo.substr(0, 2);
+                    dayText = parseInt(NICNo.substr(2, 3));
+                } else {
+                    year = NICNo.substr(0, 4);
+                    dayText = parseInt(NICNo.substr(4, 3));
+                }
+
+                // Gender
+                if (dayText > 500) {
+                    gender = "Female";
+                    dayText = dayText - 500;
+                } else {
+                    gender = "Male";
+                }
+
+                // Day Digit Validation
+                if (dayText < 1 && dayText > 366) {
+                  wrongnic2='<table style="width:100%"><tr><th><img class="responsive-img" src="img/Oops.png" style="height:100px;"></th><th><h2>  යම්කිසි වරදක් වී ඇත.</h2><br><p>කරුණාකර ජාතික හැදුනුම්පත් අංකය පරික්ෂාකර නැවත ඇතුලත් කරන්න</p></th> </tr></table>'
+              
+                    $("#error").html(wrongnic2);
+                } else {
+
+                    //Month
+                    if (dayText > 335) {
+                        day = dayText - 335;
+                        month = "December";
+                    }
+                    else if (dayText > 305) {
+                        day = dayText - 305;
+                        month = "November";
+                    }
+                    else if (dayText > 274) {
+                        day = dayText - 274;
+                        month = "October";
+                    }
+                    else if (dayText > 244) {
+                        day = dayText - 244;
+                        month = "September";
+                    }
+                    else if (dayText > 213) {
+                        day = dayText - 213;
+                        month = "Auguest";
+                    }
+                    else if (dayText > 182) {
+                        day = dayText - 182;
+                        month = "July";
+                    }
+                    else if (dayText > 152) {
+                        day = dayText - 152;
+                        month = "June";
+                    }
+                    else if (dayText > 121) {
+                        day = dayText - 121;
+                        month = "May";
+                    }
+                    else if (dayText > 91) {
+                        day = dayText - 91;
+                        month = "April";
+                    }
+                    else if (dayText > 60) {
+                        day = dayText - 60;
+                        month = "March";
+                    }
+                    else if (dayText < 32) {
+                        month = "January";
+                        day = dayText;
+                    }
+                    else if (dayText > 31) {
+                        day = dayText - 31;
+                        month = "Febuary";
+                    }
+
+                    // Show Details
+                    $("#gender").html("ස්ත්‍රී පුරුෂ භාවය : " + gender);
+                    $("#year").html(" අවුරුද්ද : " + year);
+                    $("#month").html(" මාසය : " + month);
+                    $("#day").html("දවස :" + day);
+                }
+            }
+        });
+    });
+</script>
+</head>
+
+<body>
+  <nav class="light-blue lighten-1 " role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">උපන්දින සෙවුම</a>
+      <ul class="right hide-on-med-and-down">
+          <li><a href="index_en.html" target="_blank">English</a></li>
+        <li><a href="https://ggslk.com/" target="_blank">GGSLK</a></li>
+        <li><a href="https://trandipa96.github.io/" target="_blank">මම ගැන</a></li>
+        
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+          <li><a href="index_en.html" target="_blank">English</a></li>
+        <li><a href="https://ggslk.com/" target="_blank">GGSLK</a></li>
+        <li><a href="https://trandipa96.github.io/" target="_blank">මම ගැන</a></li>
+      
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br>
+      <h1 class="header center blue-text">Hello,</h1>
+      <h5 class="header center blue-text" id="lblGreetings"></h5>
+
+      <div class="row center">
+        <div class="input-field col s2"></div>
+        <div class="input-field col s8">
+          <input id="nic" type="text" class="validate">
+          <label for="nic">ජාතික හැදුනුම්පත් අංකය</label>
+        </div>
+        <div class="input-field col s2"></div>
+      </div>
+      <div class="row center">
+
+        <a  id="find" class="btn-large waves-effect modal-trigger waves-light blue" href="#modal1">ආරම්භ කරන්න</a>
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+  
+
+   <!-- Modal Structure -->
+   <div id="modal1" class="modal bottom-sheet">
+     <div class="modal-content center">
+        <p id="error" style="color: red;"></p>
+        <p id="gender" style="color: #000;"></p>
+        <p id="year" style="color: #000;"></p>
+        <p id="month" style="color: #000;"></p>
+        <p id="day" style="color: #000;"></p>
+     </div>
+     <br><br>
+   </div>
+
+
+
+
+  <br><br><br>
+  <footer class="page-footer blue">
+
+
+    <div class="container center">
+      සැකසුම <a class="blue-text text-lighten-3" href="https://trandipa96.github.io/">තරිදු රන්දීප</a><br>සවිබල ගැන්වුම<a class="blue-text text-lighten-3" href="https://ggslk.com"> GGSLK</a>
+    </div>
+    <br>
+  </footer>
+
+
+  <!--  Scripts-->
+
+  <script>
+    var myDate = new Date();
+    var hrs = myDate.getHours();
+
+    var greet;
+
+    if (hrs < 12)
+      greet = 'සුභ උදෑසනක් වේවා.. !';
+    else if (hrs >= 12 && hrs <= 17)
+      greet = 'සුභ මධ්‍යහනක් වේවා.. !';
+    else if (hrs >= 17 && hrs <= 24)
+      greet = 'සුභ සන්ධ්‍යාවක් වේවා.. !';
+
+    document.getElementById('lblGreetings').innerHTML =
+      '<b>' + greet + '</b>';
+  </script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+</body>
+
+</html>
